@@ -1,0 +1,14 @@
+#!/bin/sh
+# Mount proc/sys/dev and attempt to mount a 9p host share at /mnt/host.
+# Works with QEMU: -virtfs local,path=...,mount_tag=hostshare,...
+
+mkdir -p /proc /sys /dev /mnt/host
+
+mount -t proc none /proc 2>/dev/null || true
+mount -t sysfs none /sys 2>/dev/null || true
+mount -t devtmpfs none /dev 2>/dev/null || true
+
+# Try to mount hostshare; ignore failures (not always provided)
+mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt/host 2>/dev/null || true
+
+exit 0

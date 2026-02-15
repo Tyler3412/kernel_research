@@ -1,0 +1,34 @@
+BR2_x86_64=y
+
+# Toolchain (Buildroot defaults are fine)
+BR2_TOOLCHAIN_BUILDROOT_GLIBC=y
+
+# System
+BR2_TARGET_GENERIC_GETTY=y
+BR2_TARGET_GENERIC_GETTY_PORT="ttyS0"
+BR2_TARGET_GENERIC_GETTY_BAUDRATE_KEEP=y
+BR2_TARGET_GENERIC_ROOT_PASSWD="root"
+BR2_TARGET_GENERIC_USERS="user:password:1000:1000:User:/home/user:/bin/sh"
+
+# Rootfs overlay (adds /etc/init.d/S02hostshare)
+BR2_ROOTFS_OVERLAY="$(BR2_EXTERNAL_KERNEL_RESEARCH_PATH)/overlay"
+
+# Filesystem image
+BR2_TARGET_ROOTFS_CPIO=y
+BR2_TARGET_ROOTFS_CPIO_GZIP=y
+
+# --- Packages for netfilter CVE work ---
+# nftables CLI + deps
+BR2_PACKAGE_LIBMNL=y
+BR2_PACKAGE_LIBNFTNL=y
+BR2_PACKAGE_NFTABLES=y
+
+# iproute2 (optional but useful: ip, tc, ss, etc.)
+BR2_PACKAGE_IPROUTE2=y
+
+# QoL debugging tools (cheap, high ROI)
+BR2_PACKAGE_STRACE=y
+BR2_PACKAGE_GDB=y
+BR2_PACKAGE_GDB_SERVER=y
+
+
